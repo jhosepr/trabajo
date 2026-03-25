@@ -1,9 +1,11 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using practica.Models;
 using System.Diagnostics;
 
 namespace practica.Controllers
 {
+    [Authorize]
     public class HomeController : Controller
     {
         public IActionResult Index()
