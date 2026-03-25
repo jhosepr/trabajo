@@ -24,12 +24,15 @@
                             <li class="nav-item">
                                 <a class="nav-link text-white" asp-controller="Home" asp-action="Index">Inicio</a>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-white" asp-controller="Categorias" asp-action="Index">Categorías</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-white" asp-controller="Estantes" asp-action="Index">Estantes</a>
-                            </li>
+                            @if (User.IsInRole("Administrador") || User.IsInRole("Farmaceutico"))
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link text-white" asp-controller="Categorias" asp-action="Index">Categorías</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-white" asp-controller="Estantes" asp-action="Index">Estantes</a>
+                                </li>
+                            }
                             <li class="nav-item">
                                 <a class="nav-link text-white" asp-controller="Medicamentoes" asp-action="Index">Medicamentos</a>
                             </li>

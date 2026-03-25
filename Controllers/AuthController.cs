@@ -33,10 +33,12 @@ namespace practica.Controllers
                 var user = await _userManager.FindByEmailAsync(model.Email);
                 var roles = await _userManager.GetRolesAsync(user!);
 
-                if (roles.Contains("Administrador") || roles.Contains("Farmaceutico"))
+                if (roles.Contains("Administrador"))
                     return RedirectToAction("Index", "Home");
-
-                return RedirectToAction("Index", "Home");
+                else if (roles.Contains("Farmaceutico"))
+                    return RedirectToAction("Index", "Medicamentoes");
+                else
+                    return RedirectToAction("Index", "Medicamentoes"); 
             }
 
             ModelState.AddModelError("", "Email o contraseña incorrectos");
