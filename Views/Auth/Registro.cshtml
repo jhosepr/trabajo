@@ -1,0 +1,56 @@
+﻿@model practica.ViewModels.RegistroViewModel
+@{
+    ViewData["Title"] = "Registro";
+    Layout = "_Layout";
+}
+
+<div class="row justify-content-center mt-5">
+    <div class="col-md-5">
+        <div class="card shadow">
+            <div class="card-header bg-dark text-white text-center">
+                <h4>🏥 Farmacia</h4>
+                <p class="mb-0">Crear Cuenta</p>
+            </div>
+            <div class="card-body p-4">
+                <form asp-action="Registro" method="post">
+                    <div asp-validation-summary="All" class="alert alert-danger" style="display:@(ViewContext.ModelState.IsValid ? "none" : "block")"></div>
+                    <div class="mb-3">
+                        <label asp-for="Nombre" class="form-label fw-bold"></label>
+                        <input asp-for="Nombre" class="form-control" />
+                        <span asp-validation-for="Nombre" class="text-danger small"></span>
+                    </div>
+                    <div class="mb-3">
+                        <label asp-for="Apellido" class="form-label fw-bold"></label>
+                        <input asp-for="Apellido" class="form-control" />
+                        <span asp-validation-for="Apellido" class="text-danger small"></span>
+                    </div>
+                    <div class="mb-3">
+                        <label asp-for="Email" class="form-label fw-bold"></label>
+                        <input asp-for="Email" class="form-control" />
+                        <span asp-validation-for="Email" class="text-danger small"></span>
+                    </div>
+                    <div class="mb-3">
+                        <label asp-for="Password" class="form-label fw-bold"></label>
+                        <input asp-for="Password" class="form-control" />
+                        <span asp-validation-for="Password" class="text-danger small"></span>
+                    </div>
+                    <div class="mb-3">
+                        <label asp-for="ConfirmPassword" class="form-label fw-bold"></label>
+                        <input asp-for="ConfirmPassword" class="form-control" />
+                        <span asp-validation-for="ConfirmPassword" class="text-danger small"></span>
+                    </div>
+                    <button type="submit" class="btn btn-success w-100">Registrarse</button>
+                </form>
+            </div>
+            <div class="card-footer text-center">
+                <small>¿Ya tienes cuenta? <a asp-action="Login">Inicia sesión</a></small>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
