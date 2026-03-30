@@ -35,8 +35,32 @@ namespace practica.Data
                 await userManager.CreateAsync(admin, "Admin123!");
                 await userManager.AddToRoleAsync(admin, "Administrador");
             }
-        }
 
+            // 2. Crear Farmacéutico (NUEVO BLOQUE)
+            var farmaciaEmail = "farmaceutico@farmacia.com";
+            if (await userManager.FindByEmailAsync(farmaciaEmail) == null)
+            {
+                var farmaceutico = new Usuario
+                {
+                    UserName = farmaciaEmail,
+                    Email = farmaciaEmail,
+                    Nombre = "Juan",
+                    Apellido = "Pérez",
+                    EmailConfirmed = true
+                };
+
+                // Creamos el usuario con una contraseña temporal
+                var result = await userManager.CreateAsync(farmaceutico, "Farma123!");
+
+                if (result.Succeeded)
+                {
+                    // Asignamos el rol "Farmaceutico" que definiste arriba
+                    await userManager.AddToRoleAsync(farmaceutico, "Farmaceutico");
+                }
+            }
+
+        }
+        
         public static async Task InicializarDatos(IServiceProvider serviceProvider)
         {
             using var context = new practicaContext(
