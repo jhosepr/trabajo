@@ -20,28 +20,38 @@ namespace practica.Controllers
         }
 
         // GET: Medicamentoes
-        public async Task<IActionResult> Index()
+        // SE AGREGÓ EL PARÁMETRO buscarNombre PARA EL FILTRADO
+        public async Task<IActionResult> Index(string buscarNombre)
         {
-            var applicationDbContext = _context.Medicamentos.Include(m => m.Categoria).Include(m => m.Estante);
-            return View(await applicationDbContext.ToListAsync());
+            // Iniciamos la consulta incluyendo las relaciones
+            var medicamentos = _context.Medicamentos
+                .Include(m => m.Categoria)
+                .Include(m => m.Estante)
+                .AsQueryable();
+
+            // Lógica de filtrado por nombre
+            if (!string.IsNullOrEmpty(buscarNombre))
+            {
+                medicamentos = medicamentos.Where(s => s.Nombre.Contains(buscarNombre));
+            }
+
+            // Guardamos el término buscado para que no se borre del input al recargar
+            ViewData["FiltroActual"] = buscarNombre;
+
+            return View(await medicamentos.ToListAsync());
         }
 
         // GET: Medicamentoes/Details/5
         public async Task<IActionResult> Details(int? id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
+            if (id == null) return NotFound();
 
             var medicamento = await _context.Medicamentos
                 .Include(m => m.Categoria)
                 .Include(m => m.Estante)
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (medicamento == null)
-            {
-                return NotFound();
-            }
+
+            if (medicamento == null) return NotFound();
 
             return View(medicamento);
         }
@@ -54,9 +64,6 @@ namespace practica.Controllers
             return View();
         }
 
-        // POST: Medicamentoes/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Nombre,Precio,Stock,FechaVencimiento,Estado,CategoriaId,EstanteId")] Medicamento medicamento)
@@ -75,32 +82,21 @@ namespace practica.Controllers
         // GET: Medicamentoes/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
+            if (id == null) return NotFound();
 
             var medicamento = await _context.Medicamentos.FindAsync(id);
-            if (medicamento == null)
-            {
-                return NotFound();
-            }
+            if (medicamento == null) return NotFound();
+
             ViewData["CategoriaId"] = new SelectList(_context.Categorias, "Id", "Nombre", medicamento.CategoriaId);
             ViewData["EstanteId"] = new SelectList(_context.Estantes, "Id", "Nombre", medicamento.EstanteId);
             return View(medicamento);
         }
 
-        // POST: Medicamentoes/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Nombre,Precio,Stock,FechaVencimiento,Estado,CategoriaId,EstanteId")] Medicamento medicamento)
         {
-            if (id != medicamento.Id)
-            {
-                return NotFound();
-            }
+            if (id != medicamento.Id) return NotFound();
 
             if (ModelState.IsValid)
             {
@@ -111,14 +107,8 @@ namespace practica.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!MedicamentoExists(medicamento.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
+                    if (!MedicamentoExists(medicamento.Id)) return NotFound();
+                    else throw;
                 }
                 return RedirectToAction(nameof(Index));
             }
@@ -130,24 +120,18 @@ namespace practica.Controllers
         // GET: Medicamentoes/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
+            if (id == null) return NotFound();
 
             var medicamento = await _context.Medicamentos
                 .Include(m => m.Categoria)
                 .Include(m => m.Estante)
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (medicamento == null)
-            {
-                return NotFound();
-            }
+
+            if (medicamento == null) return NotFound();
 
             return View(medicamento);
         }
 
-        // POST: Medicamentoes/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)

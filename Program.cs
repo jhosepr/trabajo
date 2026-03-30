@@ -3,23 +3,28 @@ using practica.Data;
 using Microsoft.Extensions.DependencyInjection;
 
 var builder = WebApplication.CreateBuilder(args);
-builder.Services.AddDbContext<practicaContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("practicaContext") ?? throw new InvalidOperationException("Connection string 'practicaContext' not found.")));
 
-// 1. Obtener la cadena de conexión
+// --- CONFIGURACIÓN DE SQLITE ---
+
+// 1. Configuración para practicaContext
+builder.Services.AddDbContext<practicaContext>(options =>
+    options.UseSqlite(builder.Configuration.GetConnectionString("practicaContext")
+    ?? throw new InvalidOperationException("Connection string 'practicaContext' not found.")));
+
+// 2. Obtener la cadena de conexión para ApplicationDbContext
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection")
     ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
 
-// 2. Registrar el DbContext (Esto quita el error de la imagen)
+// 3. Registrar ApplicationDbContext usando SQLite
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseSqlServer(connectionString));
+    options.UseSqlite(connectionString));
 
-// Add services to the container.
+// -------------------------------
+
 builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");
