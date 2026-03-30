@@ -17,6 +17,8 @@ builder.Services.AddIdentity<Usuario, IdentityRole>(options =>
     options.Password.RequiredLength = 6;
     options.Password.RequireNonAlphanumeric = false;
 })
+
+//hola
 .AddEntityFrameworkStores<practicaContext>()
 .AddDefaultTokenProviders();
 
