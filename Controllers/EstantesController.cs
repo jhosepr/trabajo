@@ -1,4 +1,4 @@
-﻿using Farmacia.Data;
+using Farmacia.Data;
 using Farmacia.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -13,6 +13,7 @@ using System.Threading.Tasks;
 namespace practica.Controllers
 {
     [Authorize]
+    [Authorize(Roles = "Administrador,Farmaceutico")]
     public class EstantesController : Controller
     {
         private readonly practicaContext _context;
@@ -47,16 +48,16 @@ namespace practica.Controllers
         }
 
         // GET: Estantes/Create
+        [Authorize(Roles = "Administrador")]
         public IActionResult Create()
         {
             return View();
         }
 
         // POST: Estantes/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Administrador")]
         public async Task<IActionResult> Create([Bind("Id,Nombre,Ubicacion,Descripcion")] Estante estante)
         {
             if (ModelState.IsValid)
@@ -69,6 +70,7 @@ namespace practica.Controllers
         }
 
         // GET: Estantes/Edit/5
+        [Authorize(Roles = "Administrador")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -85,10 +87,9 @@ namespace practica.Controllers
         }
 
         // POST: Estantes/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Administrador")]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Nombre,Ubicacion,Descripcion")] Estante estante)
         {
             if (id != estante.Id)
@@ -120,6 +121,7 @@ namespace practica.Controllers
         }
 
         // GET: Estantes/Delete/5
+        [Authorize(Roles = "Administrador")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -140,6 +142,7 @@ namespace practica.Controllers
         // POST: Estantes/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Administrador")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var estante = await _context.Estantes.FindAsync(id);

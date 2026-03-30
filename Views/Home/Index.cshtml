@@ -1,8 +1,203 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+@model practica.ViewModels.DashboardViewModel
+@{
+    ViewData["Title"] = "Dashboard de Gestión";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="container-fluid py-4">
+    <div class="row mb-4">
+        <div class="col-12">
+            <h1 class="h3 mb-0 text-gray-800">📊 Panel de Control Farmacia</h1>
+            <p class="text-muted">Resumen operativo para la toma de decisiones.</p>
+        </div>
+    </div>
+
+    <!-- Stats Cards -->
+    <div class="row">
+        <!-- Total Medicamentos -->
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-primary shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Total Medicamentos</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">@Model.TotalMedicamentos</div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-pills fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Vencidos -->
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-danger shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-danger text-uppercase mb-1">Vencidos</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">@Model.MedicamentosVencidos</div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-calendar-times fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Por Vencer -->
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-warning shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Por Vencer (30d)</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">@Model.MedicamentosPorVencer</div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-exclamation-triangle fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bajo Stock -->
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-info shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Bajo Stock (≤10)</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">@Model.ProductosBajoStock</div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-boxes fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Charts Section -->
+    <div class="row mt-4">
+        <!-- Bar Chart -->
+        <div class="col-xl-8 col-lg-7">
+            <div class="card shadow mb-4">
+                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                    <h6 class="m-0 font-weight-bold text-primary">Distribución por Categoría</h6>
+                </div>
+                <div class="card-body">
+                    <div class="chart-area">
+                        <canvas id="myBarChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Donut Chart -->
+        <div class="col-xl-4 col-lg-5">
+            <div class="card shadow mb-4">
+                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                    <h6 class="m-0 font-weight-bold text-primary">Estado de Inventario</h6>
+                </div>
+                <div class="card-body">
+                    <div class="chart-pie pt-4 pb-2">
+                        <canvas id="myPieChart"></canvas>
+                    </div>
+                    <div class="mt-4 text-center small">
+                        <span class="mr-2">
+                            <i class="fas fa-circle text-primary"></i> Normal
+                        </span>
+                        <span class="mr-2">
+                            <i class="fas fa-circle text-danger"></i> Vencido
+                        </span>
+                        <span class="mr-2">
+                            <i class="fas fa-circle text-warning"></i> Por Vencer
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
+
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        // Pie Chart
+        const ctxPie = document.getElementById('myPieChart').getContext('2d');
+        new Chart(ctxPie, {
+            type: 'doughnut',
+            data: {
+                labels: ["Normal", "Vencido", "Por Vencer"],
+                datasets: [{
+                    data: [@(Model.TotalMedicamentos - Model.MedicamentosVencidos - Model.MedicamentosPorVencer), @Model.MedicamentosVencidos, @Model.MedicamentosPorVencer],
+                    backgroundColor: ['#4e73df', '#e40316', '#f6c23e'],
+                    hoverBackgroundColor: ['#2e59d9', '#c10000', '#dda20a'],
+                    hoverBorderColor: "rgba(234, 236, 244, 1)",
+                }],
+            },
+            options: {
+                maintainAspectRatio: false,
+                tooltips: {
+                    backgroundColor: "rgb(255,255,255)",
+                    bodyFontColor: "#858796",
+                    borderColor: '#dddfeb',
+                    borderWidth: 1,
+                    xPadding: 15,
+                    yPadding: 15,
+                    displayColors: false,
+                    caretPadding: 10,
+                },
+                legend: {
+                    display: false
+                },
+                cutoutPercentage: 80,
+            },
+        });
+
+        // Bar Chart
+        const ctxBar = document.getElementById('myBarChart').getContext('2d');
+        new Chart(ctxBar, {
+            type: 'bar',
+            data: {
+                labels: @Html.Raw(Json.Serialize(Model.CategoriasNombres)),
+                datasets: [{
+                    label: "Cant. Productos",
+                    backgroundColor: "#4e73df",
+                    hoverBackgroundColor: "#2e59d9",
+                    borderColor: "#4e73df",
+                    data: @Html.Raw(Json.Serialize(Model.CategoriasConteo)),
+                }],
+            },
+            options: {
+                maintainAspectRatio: false,
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true
+                        }
+                    }]
+                }
+            }
+        });
+    </script>
+}
+
+<style>
+    .border-left-primary { border-left: .25rem solid #4e73df !important; }
+    .border-left-success { border-left: .25rem solid #1cc88a !important; }
+    .border-left-info { border-left: .25rem solid #36b9cc !important; }
+    .border-left-warning { border-left: .25rem solid #f6c23e !important; }
+    .border-left-danger { border-left: .25rem solid #e74a3b !important; }
+    .card-body { padding: 1.25rem; }
+    .font-weight-bold { font-weight: 700 !important; }
+    .text-gray-300 { color: #dddfeb !important; }
+    .text-gray-800 { color: #5a5c69 !important; }
+    .chart-area { height: 300px; position: relative }
+    .chart-pie { height: 250px; position: relative }
+</style>

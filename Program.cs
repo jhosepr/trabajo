@@ -1,4 +1,4 @@
-﻿using Farmacia.Data;
+using Farmacia.Data;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using practica.Data;
@@ -33,6 +33,7 @@ var app = builder.Build();
 using (var scope = app.Services.CreateScope())
 {
     await practica.Data.SeedData.InicializarRoles(scope.ServiceProvider);
+    await practica.Data.SeedData.InicializarDatos(scope.ServiceProvider);
 }
 
 if (!app.Environment.IsDevelopment())

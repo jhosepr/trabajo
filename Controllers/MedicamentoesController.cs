@@ -1,4 +1,4 @@
-﻿using Farmacia.Data;
+using Farmacia.Data;
 using Farmacia.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -51,6 +51,7 @@ namespace practica.Controllers
         }
 
         // GET: Medicamentoes/Create
+        [Authorize(Roles = "Administrador,Farmaceutico")]
         public IActionResult Create()
         {
             ViewData["CategoriaId"] = new SelectList(_context.Categorias, "Id", "Nombre");
@@ -60,6 +61,7 @@ namespace practica.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Administrador,Farmaceutico")]
         public async Task<IActionResult> Create([Bind("Id,Nombre,Precio,Stock,FechaVencimiento,Descripcion,Estado,CategoriaId,EstanteId")] Medicamento medicamento)
         {
             if (ModelState.IsValid)
@@ -74,6 +76,7 @@ namespace practica.Controllers
         }
 
         // GET: Medicamentoes/Edit/5
+        [Authorize(Roles = "Administrador,Farmaceutico")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -93,6 +96,7 @@ namespace practica.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Administrador,Farmaceutico")]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Nombre,Precio,Stock,FechaVencimiento,Descripcion,Estado,CategoriaId,EstanteId")] Medicamento medicamento)
         {
             if (id != medicamento.Id)
@@ -126,6 +130,7 @@ namespace practica.Controllers
         }
 
         // GET: Medicamentoes/Delete/5
+        [Authorize(Roles = "Administrador")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -147,6 +152,7 @@ namespace practica.Controllers
 
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Administrador")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var medicamento = await _context.Medicamentos.FindAsync(id);

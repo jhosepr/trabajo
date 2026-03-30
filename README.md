@@ -22,3 +22,4 @@ Control de Inventario (vencidos, por vencer, bajo stock)
 Dashboard con métricas
 Reportes (medicamentos vencidos, por vencer, inventario completo, bajo stock)
 Protección de rutas por rol ([Authorize])
+Verificacion y correcta Implementacion del Dashboard y Reportes
