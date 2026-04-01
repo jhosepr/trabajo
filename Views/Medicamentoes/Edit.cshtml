@@ -1,69 +1,100 @@
-﻿@model Farmacia.Models.Medicamento
+@model Farmacia.Models.Medicamento
 
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "Editar Medicamento";
 }
 
-<h1>Edit</h1>
+<div class="container mt-4 mb-5">
+    <div class="row justify-content-center">
+        <div class="col-md-10 col-lg-8">
+            <div class="card shadow-lg border border-warning rounded-4 bg-dark text-light overflow-hidden">
+                <div class="card-header bg-warning text-dark py-4 text-center border-bottom border-warning">
+                    <i class="fas fa-edit fa-3x mb-2 shadow-sm rounded-circle p-1" style="background: rgba(0,0,0,0.1);"></i>
+                    <h3 class="mb-0 fw-bold">Editar Medicamento</h3>
+                </div>
+                <div class="card-body p-4 p-md-5">
+                    <form asp-action="Edit">
+                        <div asp-validation-summary="ModelOnly" class="alert alert-danger border border-danger text-center rounded-3 p-2 mb-4"></div>
+                        <input type="hidden" asp-for="Id" />
+                        
+                        <div class="row">
+                            <div class="col-md-6 mb-4">
+                                <label asp-for="Nombre" class="form-label fw-bold text-light opacity-75 text-uppercase small"></label>
+                                <input asp-for="Nombre" class="form-control bg-dark border-secondary text-light fw-bold px-3 py-2" />
+                                <span asp-validation-for="Nombre" class="text-danger small mt-1 d-block"></span>
+                            </div>
+                            
+                            <div class="col-md-6 mb-4">
+                                <label asp-for="Precio" class="form-label fw-bold text-light opacity-75 text-uppercase small"></label>
+                                <div class="input-group">
+                                    <span class="input-group-text bg-black border-secondary text-success fw-bold"><i class="fas fa-dollar-sign"></i></span>
+                                    <input asp-for="Precio" class="form-control bg-dark border-secondary text-light px-3 py-2" />
+                                </div>
+                                <span asp-validation-for="Precio" class="text-danger small mt-1 d-block"></span>
+                            </div>
+                        </div>
 
-<h4>Medicamento</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Edit">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="Id" />
-            <div class="form-group">
-                <label asp-for="Nombre" class="control-label"></label>
-                <input asp-for="Nombre" class="form-control" />
-                <span asp-validation-for="Nombre" class="text-danger"></span>
+                        <div class="row">
+                            <div class="col-md-6 mb-4">
+                                <label asp-for="Stock" class="form-label fw-bold text-light opacity-75 text-uppercase small"></label>
+                                <input asp-for="Stock" class="form-control bg-dark border-secondary text-light px-3 py-2" />
+                                <span asp-validation-for="Stock" class="text-danger small mt-1 d-block"></span>
+                            </div>
+                            
+                            <div class="col-md-6 mb-4">
+                                <label asp-for="FechaVencimiento" class="form-label fw-bold text-light opacity-75 text-uppercase small"></label>
+                                <input asp-for="FechaVencimiento" class="form-control bg-dark border-secondary text-light px-3 py-2" type="date" />
+                                <span asp-validation-for="FechaVencimiento" class="text-danger small mt-1 d-block"></span>
+                            </div>
+                        </div>
+
+                        <div class="mb-4">
+                            <label asp-for="Descripcion" class="form-label fw-bold text-light opacity-75 text-uppercase small"></label>
+                            <textarea asp-for="Descripcion" class="form-control bg-dark border-secondary text-light px-3 py-2" rows="3"></textarea>
+                            <span asp-validation-for="Descripcion" class="text-danger small mt-1 d-block"></span>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 mb-4">
+                                <label asp-for="CategoriaId" class="form-label fw-bold text-light opacity-75 text-uppercase small"></label>
+                                <select asp-for="CategoriaId" class="form-select bg-dark border-secondary text-light px-3 py-2" asp-items="ViewBag.CategoriaId"></select>
+                                <span asp-validation-for="CategoriaId" class="text-danger small mt-1 d-block"></span>
+                            </div>
+                            
+                            <div class="col-md-6 mb-4">
+                                <label asp-for="EstanteId" class="form-label fw-bold text-light opacity-75 text-uppercase small"></label>
+                                <select asp-for="EstanteId" class="form-select bg-dark border-secondary text-light px-3 py-2" asp-items="ViewBag.EstanteId"></select>
+                                <span asp-validation-for="EstanteId" class="text-danger small mt-1 d-block"></span>
+                            </div>
+                        </div>
+
+                        <div class="mb-5 form-check form-switch fs-5 mt-2 bg-black border border-secondary rounded-3 p-3">
+                            <input class="form-check-input ms-2 me-3 bg-dark border-secondary" type="checkbox" asp-for="Estado" id="estadoSwitch" style="cursor: pointer;">
+                            <label class="form-check-label text-light fw-bold" for="estadoSwitch" style="cursor: pointer;">
+                                Medicamento Activo <span class="d-block small text-secondary fw-normal">Si se desactiva, no podrá ser facturado o vendido.</span>
+                            </label>
+                        </div>
+
+                        <div class="d-flex justify-content-between align-items-center mt-2">
+                            <a asp-action="Index" class="btn btn-outline-secondary rounded-pill px-4 fw-bold text-light">
+                                <i class="fas fa-arrow-left me-1"></i> Cancelar
+                            </a>
+                            <button type="submit" class="btn btn-warning rounded-pill px-4 fw-bold text-dark shadow-sm">
+                                <i class="fas fa-save me-1"></i> Guardar Cambios
+                            </button>
+                        </div>
+                    </form>
+                </div>
             </div>
-            <div class="form-group">
-                <label asp-for="Precio" class="control-label"></label>
-                <input asp-for="Precio" class="form-control" />
-                <span asp-validation-for="Precio" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Stock" class="control-label"></label>
-                <input asp-for="Stock" class="form-control" />
-                <span asp-validation-for="Stock" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="FechaVencimiento" class="control-label"></label>
-                <input asp-for="FechaVencimiento" class="form-control" />
-                <span asp-validation-for="FechaVencimiento" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Descripcion" class="control-label"></label>
-                <input asp-for="Descripcion" class="form-control" />
-                <span asp-validation-for="Descripcion" class="text-danger"></span>
-            </div>
-            <div class="form-group form-check">
-                <label class="form-check-label">
-                    <input class="form-check-input" asp-for="Estado" /> @Html.DisplayNameFor(model => model.Estado)
-                </label>
-            </div>
-            <div class="form-group">
-                <label asp-for="CategoriaId" class="control-label"></label>
-                <select asp-for="CategoriaId" class="form-control" asp-items="ViewBag.CategoriaId"></select>
-                <span asp-validation-for="CategoriaId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="EstanteId" class="control-label"></label>
-                <select asp-for="EstanteId" class="form-control" asp-items="ViewBag.EstanteId"></select>
-                <span asp-validation-for="EstanteId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
-            </div>
-        </form>
+        </div>
     </div>
-</div>
-
-<div>
-    <a asp-action="Index">Back to List</a>
 </div>
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }
+<style>
+    input.form-control:focus, textarea.form-control:focus, select.form-select:focus { 
+        background-color: #1a1e23; border-color: #ffc107; color: white; box-shadow: 0 0 0 0.25rem rgba(255, 193, 7, 0.25); 
+    }
+</style>

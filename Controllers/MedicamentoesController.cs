@@ -24,10 +24,24 @@ namespace practica.Controllers
         }
 
         // GET: Medicamentoes
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string searchString, int? categoriaId)
         {
-            var practicaContext = _context.Medicamentos.Include(m => m.Categoria).Include(m => m.Estante);
-            return View(await practicaContext.ToListAsync());
+            var medicamentos = _context.Medicamentos.Include(m => m.Categoria).Include(m => m.Estante).AsQueryable();
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                medicamentos = medicamentos.Where(m => m.Nombre.Contains(searchString));
+            }
+
+            if (categoriaId.HasValue)
+            {
+                medicamentos = medicamentos.Where(m => m.CategoriaId == categoriaId);
+            }
+
+            ViewData["Categorias"] = new SelectList(_context.Categorias, "Id", "Nombre", categoriaId);
+            ViewData["CurrentFilter"] = searchString;
+
+            return View(await medicamentos.ToListAsync());
         }
 
         // GET: Medicamentoes/Details/5

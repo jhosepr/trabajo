@@ -4,10 +4,10 @@
 }
 
 <div class="container-fluid py-4">
-    <div class="row mb-4">
+    <div class="row mb-5">
         <div class="col-12">
-            <h1 class="h3 mb-0 text-gray-800">📊 Panel de Control Farmacia</h1>
-            <p class="text-muted">Resumen operativo para la toma de decisiones.</p>
+            <h1 class="h3 mb-1 fw-bold text-white"><i class="fas fa-tachometer-alt me-2 text-info"></i>Panel de Control</h1>
+            <p class="text-secondary">Resumen operativo para la toma de decisiones.</p>
         </div>
     </div>
 
@@ -15,15 +15,15 @@
     <div class="row">
         <!-- Total Medicamentos -->
         <div class="col-xl-3 col-md-6 mb-4">
-            <div class="card border-left-primary shadow h-100 py-2">
+            <div class="card border-0 shadow h-100 py-2 bg-dark rounded-4" style="border-left: 4px solid #4e73df !important;">
                 <div class="card-body">
                     <div class="row no-gutters align-items-center">
                         <div class="col mr-2">
                             <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Total Medicamentos</div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">@Model.TotalMedicamentos</div>
+                            <div class="h4 mb-0 font-weight-bold text-white">@Model.TotalMedicamentos</div>
                         </div>
                         <div class="col-auto">
-                            <i class="fas fa-pills fa-2x text-gray-300"></i>
+                            <i class="fas fa-pills fa-2x text-secondary opacity-50"></i>
                         </div>
                     </div>
                 </div>
@@ -32,15 +32,15 @@
 
         <!-- Vencidos -->
         <div class="col-xl-3 col-md-6 mb-4">
-            <div class="card border-left-danger shadow h-100 py-2">
+            <div class="card border-0 shadow h-100 py-2 bg-dark rounded-4" style="border-left: 4px solid #e74a3b !important;">
                 <div class="card-body">
                     <div class="row no-gutters align-items-center">
                         <div class="col mr-2">
                             <div class="text-xs font-weight-bold text-danger text-uppercase mb-1">Vencidos</div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">@Model.MedicamentosVencidos</div>
+                            <div class="h4 mb-0 font-weight-bold text-white">@Model.MedicamentosVencidos</div>
                         </div>
                         <div class="col-auto">
-                            <i class="fas fa-calendar-times fa-2x text-gray-300"></i>
+                            <i class="fas fa-calendar-times fa-2x text-secondary opacity-50"></i>
                         </div>
                     </div>
                 </div>
@@ -49,15 +49,15 @@
 
         <!-- Por Vencer -->
         <div class="col-xl-3 col-md-6 mb-4">
-            <div class="card border-left-warning shadow h-100 py-2">
+            <div class="card border-0 shadow h-100 py-2 bg-dark rounded-4" style="border-left: 4px solid #f6c23e !important;">
                 <div class="card-body">
                     <div class="row no-gutters align-items-center">
                         <div class="col mr-2">
                             <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Por Vencer (30d)</div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">@Model.MedicamentosPorVencer</div>
+                            <div class="h4 mb-0 font-weight-bold text-white">@Model.MedicamentosPorVencer</div>
                         </div>
                         <div class="col-auto">
-                            <i class="fas fa-exclamation-triangle fa-2x text-gray-300"></i>
+                            <i class="fas fa-exclamation-triangle fa-2x text-secondary opacity-50"></i>
                         </div>
                     </div>
                 </div>
@@ -66,15 +66,15 @@
 
         <!-- Bajo Stock -->
         <div class="col-xl-3 col-md-6 mb-4">
-            <div class="card border-left-info shadow h-100 py-2">
+            <div class="card border-0 shadow h-100 py-2 bg-dark rounded-4" style="border-left: 4px solid #36b9cc !important;">
                 <div class="card-body">
                     <div class="row no-gutters align-items-center">
                         <div class="col mr-2">
                             <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Bajo Stock (≤10)</div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">@Model.ProductosBajoStock</div>
+                            <div class="h4 mb-0 font-weight-bold text-white">@Model.ProductosBajoStock</div>
                         </div>
                         <div class="col-auto">
-                            <i class="fas fa-boxes fa-2x text-gray-300"></i>
+                            <i class="fas fa-boxes fa-2x text-secondary opacity-50"></i>
                         </div>
                     </div>
                 </div>
@@ -83,14 +83,14 @@
     </div>
 
     <!-- Charts Section -->
-    <div class="row mt-4">
+    <div class="row mt-2">
         <!-- Bar Chart -->
         <div class="col-xl-8 col-lg-7">
-            <div class="card shadow mb-4">
-                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                    <h6 class="m-0 font-weight-bold text-primary">Distribución por Categoría</h6>
+            <div class="card border border-secondary shadow mb-4 bg-dark rounded-4">
+                <div class="card-header py-3 bg-black border-bottom border-secondary d-flex flex-row align-items-center justify-content-between">
+                    <h6 class="m-0 font-weight-bold text-primary"><i class="fas fa-chart-bar me-2"></i>Distribución por Categoría</h6>
                 </div>
-                <div class="card-body">
+                <div class="card-body bg-dark">
                     <div class="chart-area">
                         <canvas id="myBarChart"></canvas>
                     </div>
@@ -100,15 +100,15 @@
 
         <!-- Donut Chart -->
         <div class="col-xl-4 col-lg-5">
-            <div class="card shadow mb-4">
-                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                    <h6 class="m-0 font-weight-bold text-primary">Estado de Inventario</h6>
+            <div class="card border border-secondary shadow mb-4 bg-dark rounded-4">
+                <div class="card-header py-3 bg-black border-bottom border-secondary d-flex flex-row align-items-center justify-content-between">
+                    <h6 class="m-0 font-weight-bold text-primary"><i class="fas fa-chart-pie me-2"></i>Estado de Inventario</h6>
                 </div>
-                <div class="card-body">
+                <div class="card-body bg-dark">
                     <div class="chart-pie pt-4 pb-2">
                         <canvas id="myPieChart"></canvas>
                     </div>
-                    <div class="mt-4 text-center small">
+                    <div class="mt-4 text-center small text-light opacity-75">
                         <span class="mr-2">
                             <i class="fas fa-circle text-primary"></i> Normal
                         </span>
@@ -128,6 +128,9 @@
 @section Scripts {
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
+        Chart.defaults.color = '#a0a0a0';
+        Chart.defaults.scale.grid.color = 'rgba(255, 255, 255, 0.05)';
+
         // Pie Chart
         const ctxPie = document.getElementById('myPieChart').getContext('2d');
         new Chart(ctxPie, {
@@ -136,27 +139,20 @@
                 labels: ["Normal", "Vencido", "Por Vencer"],
                 datasets: [{
                     data: [@(Model.TotalMedicamentos - Model.MedicamentosVencidos - Model.MedicamentosPorVencer), @Model.MedicamentosVencidos, @Model.MedicamentosPorVencer],
-                    backgroundColor: ['#4e73df', '#e40316', '#f6c23e'],
+                    backgroundColor: ['#4e73df', '#e74a3b', '#f6c23e'],
                     hoverBackgroundColor: ['#2e59d9', '#c10000', '#dda20a'],
-                    hoverBorderColor: "rgba(234, 236, 244, 1)",
+                    borderColor: "#1a1e23",
+                    borderWidth: 2,
                 }],
             },
             options: {
                 maintainAspectRatio: false,
-                tooltips: {
-                    backgroundColor: "rgb(255,255,255)",
-                    bodyFontColor: "#858796",
-                    borderColor: '#dddfeb',
-                    borderWidth: 1,
-                    xPadding: 15,
-                    yPadding: 15,
-                    displayColors: false,
-                    caretPadding: 10,
+                plugins: {
+                    legend: {
+                        display: false
+                    }
                 },
-                legend: {
-                    display: false
-                },
-                cutoutPercentage: 80,
+                cutout: '80%',
             },
         });
 
@@ -177,11 +173,9 @@
             options: {
                 maintainAspectRatio: false,
                 scales: {
-                    yAxes: [{
-                        ticks: {
-                            beginAtZero: true
-                        }
-                    }]
+                    y: {
+                        beginAtZero: true
+                    }
                 }
             }
         });
@@ -189,15 +183,24 @@
 }
 
 <style>
-    .border-left-primary { border-left: .25rem solid #4e73df !important; }
-    .border-left-success { border-left: .25rem solid #1cc88a !important; }
-    .border-left-info { border-left: .25rem solid #36b9cc !important; }
-    .border-left-warning { border-left: .25rem solid #f6c23e !important; }
-    .border-left-danger { border-left: .25rem solid #e74a3b !important; }
-    .card-body { padding: 1.25rem; }
+    /* Premium Dashboard Styles */
+    .card {
+        transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+    }
+    
+    .card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.3) !important;
+    }
+    
+    .card-body { padding: 1.5rem; }
+    
+    .text-xs {
+        font-size: 0.8rem;
+        letter-spacing: 0.05em;
+    }
+    
     .font-weight-bold { font-weight: 700 !important; }
-    .text-gray-300 { color: #dddfeb !important; }
-    .text-gray-800 { color: #5a5c69 !important; }
-    .chart-area { height: 300px; position: relative }
-    .chart-pie { height: 250px; position: relative }
+    .chart-area { height: 320px; position: relative }
+    .chart-pie { height: 260px; position: relative }
 </style>

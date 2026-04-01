@@ -1,36 +1,45 @@
-﻿@model Farmacia.Models.Estante
+@model Farmacia.Models.Estante
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Detalles de Estante";
 }
 
-<h1>Details</h1>
+<div class="container mt-4 mb-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-6">
+            <div class="card shadow-lg border border-info rounded-4 bg-dark text-light overflow-hidden">
+                <div class="card-header bg-info text-dark py-4 text-center border-bottom border-info">
+                    <i class="fas fa-info-circle fa-3x mb-2 shadow-sm rounded-circle p-1" style="background: rgba(0,0,0,0.1);"></i>
+                    <h3 class="mb-0 fw-bold">Detalles de Estante</h3>
+                </div>
+                <div class="card-body p-4 p-md-5">
+                    
+                    <div class="bg-black bg-opacity-50 p-4 rounded-3 border border-secondary mb-5 shadow-sm">
+                        <h4 class="text-info fw-bold text-center mb-4 border-bottom border-secondary pb-3">@Html.DisplayFor(model => model.Nombre)</h4>
+                        
+                        <div class="row mb-3">
+                            <div class="col-5 text-end text-light opacity-75 fw-bold text-uppercase small">Ubicación:</div>
+                            <div class="col-7 text-start fw-bold text-warning">
+                                <i class="fas fa-map-marker-alt me-1"></i>@Html.DisplayFor(model => model.Ubicacion)
+                            </div>
+                        </div>
 
-<div>
-    <h4>Estante</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Nombre)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Nombre)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Ubicacion)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Ubicacion)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Descripcion)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Descripcion)
-        </dd>
-    </dl>
-</div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+                        <div class="row mb-0">
+                            <div class="col-5 text-end text-light opacity-75 fw-bold text-uppercase small">Descripción:</div>
+                            <div class="col-7 text-start">@Html.DisplayFor(model => model.Descripcion)</div>
+                        </div>
+                    </div>
+
+                    <div class="d-flex justify-content-between align-items-center mt-2">
+                        <a asp-action="Index" class="btn btn-outline-secondary rounded-pill px-4 fw-bold text-light">
+                            <i class="fas fa-arrow-left me-1"></i> Volver al Listado
+                        </a>
+                        <a asp-action="Edit" asp-route-id="@Model?.Id" class="btn btn-warning rounded-pill px-4 fw-bold text-dark shadow-sm">
+                            <i class="fas fa-edit me-1"></i> Editar Estante
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

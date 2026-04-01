@@ -1,45 +1,84 @@
-﻿@model practica.ViewModels.LoginViewModel
+@model practica.ViewModels.LoginViewModel
 @{
     ViewData["Title"] = "Iniciar Sesión";
-    Layout = "_Layout";
+    Layout = "_AuthLayout";
 }
 
-<div class="row justify-content-center mt-5">
-    <div class="col-md-4">
-        <div class="card shadow">
-            <div class="card-header bg-dark text-white text-center">
-                <h4>🏥 Farmacia</h4>
-                <p class="mb-0">Iniciar Sesión</p>
+<div class="container-fluid m-0 p-0 h-100 w-100 vh-100">
+    <div class="row g-0 h-100 m-0">
+        <!-- Left Side: Image/Design -->
+        <div class="col-lg-6 d-none d-lg-flex flex-column justify-content-center align-items-center position-relative overflow-hidden" style="background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);">
+            <div class="z-1 text-center p-5">
+                <i class="fas fa-stethoscope fa-5x text-info mb-4 shadow-sm rounded-circle p-4" style="background: rgba(255,255,255,0.05); border: 2px solid rgba(255,255,255,0.1);"></i>
+                <h2 class="text-white fw-bolder display-5 mb-3">Farmacia <span class="text-info">Vital</span></h2>
+                <p class="text-white-50 fs-5 mb-0" style="max-width: 400px; margin: 0 auto;">Innovación y gestión farmacéutica para un mejor cuidado de la salud.</p>
             </div>
-            <div class="card-body p-4">
+            <!-- Abstract background styling -->
+            <div class="position-absolute end-0 top-0" style="width: 400px; height: 400px; background: radial-gradient(circle, rgba(0, 201, 255, 0.1) 0%, transparent 70%); transform: translate(30%, -30%); border-radius: 50%;"></div>
+            <div class="position-absolute start-0 bottom-0" style="width: 500px; height: 500px; background: radial-gradient(circle, rgba(146, 254, 157, 0.1) 0%, transparent 70%); transform: translate(-30%, 30%); border-radius: 50%;"></div>
+        </div>
+        
+        <!-- Right Side: Login Form -->
+        <div class="col-lg-6 d-flex flex-column justify-content-center bg-dark" style="min-height: 100vh;">
+            <div class="w-100 p-4 p-md-5 mx-auto" style="max-width: 480px;">
+                <div class="text-center mb-5">
+                    <h3 class="fw-bold text-white mb-2"><i class="fas fa-clinic-medical me-2 text-info d-lg-none"></i>Bienvenido de nuevo</h3>
+                    <p class="text-secondary m-0">Ingresa tus credenciales seguras para acceder al sistema.</p>
+                </div>
+                
                 <form asp-action="Login" method="post">
-                    <div asp-validation-summary="All" class="alert alert-danger" style="display:@(ViewContext.ModelState.IsValid ? "none" : "block")"></div>
-                    <div class="mb-3">
-                        <label asp-for="Email" class="form-label fw-bold"></label>
-                        <input asp-for="Email" class="form-control" placeholder="correo@ejemplo.com" />
-                        <span asp-validation-for="Email" class="text-danger small"></span>
+                    <div asp-validation-summary="ModelOnly" class="alert alert-danger border border-danger text-center rounded-3 p-2 mb-4" style="display:@(ViewContext.ModelState.IsValid ? "none" : "block")"></div>
+                    
+                    <div class="mb-4">
+                        <label asp-for="Email" class="form-label fw-bold text-light opacity-75 text-uppercase small"></label>
+                        <div class="input-group input-group-lg shadow-sm">
+                            <span class="input-group-text bg-black border-secondary border-end-0 text-secondary"><i class="fas fa-envelope"></i></span>
+                            <input asp-for="Email" class="form-control bg-dark border-secondary border-start-0 text-light px-0" placeholder="usuario@ejemplo.com" />
+                        </div>
+                        <span asp-validation-for="Email" class="text-danger small mt-2 d-block"></span>
                     </div>
-                    <div class="mb-3">
-                        <label asp-for="Password" class="form-label fw-bold"></label>
-                        <input asp-for="Password" class="form-control" placeholder="••••••••" />
-                        <span asp-validation-for="Password" class="text-danger small"></span>
+                    
+                    <div class="mb-4">
+                        <label asp-for="Password" class="form-label fw-bold text-light opacity-75 text-uppercase small">Contraseña</label>
+                        <div class="input-group input-group-lg shadow-sm">
+                            <span class="input-group-text bg-black border-secondary border-end-0 text-secondary"><i class="fas fa-lock"></i></span>
+                            <input asp-for="Password" class="form-control bg-dark border-secondary border-start-0 text-light px-0" placeholder="••••••••" />
+                        </div>
+                        <span asp-validation-for="Password" class="text-danger small mt-2 d-block"></span>
                     </div>
-                    <div class="mb-3 form-check">
-                        <input asp-for="RememberMe" class="form-check-input" />
-                        <label asp-for="RememberMe" class="form-check-label">Recordarme</label>
+                    
+                    <div class="d-flex justify-content-between align-items-center mb-5">
+                        <div class="form-check">
+                            <input asp-for="RememberMe" class="form-check-input bg-dark border-secondary" style="cursor: pointer;" />
+                            <label asp-for="RememberMe" class="form-check-label text-light opacity-75 small" style="cursor: pointer;">Recordarme en este equipo</label>
+                        </div>
                     </div>
-                    <button type="submit" class="btn btn-dark w-100">Ingresar</button>
+                    
+                    <button type="submit" class="btn btn-info btn-lg w-100 rounded-pill shadow-lg fw-bold border-0 transition-hover text-dark py-3" style="background: linear-gradient(90deg, #00C9FF 0%, #92FE9D 100%);">
+                        <i class="fas fa-sign-in-alt me-2"></i> Iniciar Sesión
+                    </button>
+                    
+                    <div class="text-center mt-4">
+                         <a asp-controller="Home" asp-action="PublicPortal" class="btn btn-link text-secondary text-decoration-none small"><i class="fas fa-arrow-left me-1"></i> Volver al Portal</a>
+                    </div>
                 </form>
-            </div>
-            <div class="card-footer text-center">
-                <small>¿No tienes cuenta? <a asp-action="Registro">Regístrate aquí</a></small>
+                
+                <div class="text-center mt-5 pt-4 border-top border-secondary">
+                    <p class="text-secondary small mb-3">¿No tienes cuenta administrativa?</p>
+                    <a asp-action="Registro" class="btn btn-outline-secondary btn-sm rounded-pill px-4 fw-bold text-light transition-hover">
+                        Solicitar Registro Personal
+                    </a>
+                </div>
             </div>
         </div>
     </div>
 </div>
 
 @section Scripts {
-    @{
-        await Html.RenderPartialAsync("_ValidationScriptsPartial");
-    }
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }
+<style>
+    .transition-hover { transition: transform 0.2s ease, box-shadow 0.2s ease; }
+    .transition-hover:hover { transform: translateY(-3px); box-shadow: 0 0.5rem 1rem rgba(0, 201, 255, 0.2) !important; }
+    input.form-control:focus { background-color: #1a1e23; border-color: #00C9FF; color: white; box-shadow: none; }
+</style>

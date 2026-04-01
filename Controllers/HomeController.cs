@@ -17,6 +17,19 @@ namespace practica.Controllers
         {
             _context = context;
         }
+        [AllowAnonymous]
+        public IActionResult PublicPortal()
+        {
+            if (User.Identity != null && User.Identity.IsAuthenticated)
+            {
+                if (User.IsInRole("Administrador"))
+                {
+                    return RedirectToAction("Index");
+                }
+                return RedirectToAction("Index", "Medicamentoes");
+            }
+            return View();
+        }
 
         public async Task<IActionResult> Index()
         {

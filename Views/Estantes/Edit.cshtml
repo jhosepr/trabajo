@@ -1,44 +1,61 @@
-﻿@model Farmacia.Models.Estante
+@model Farmacia.Models.Estante
 
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "Editar Estante";
 }
 
-<h1>Edit</h1>
+<div class="container mt-4 mb-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-6">
+            <div class="card shadow-lg border border-warning rounded-4 bg-dark text-light overflow-hidden">
+                <div class="card-header bg-warning text-dark py-4 text-center border-bottom border-warning">
+                    <i class="fas fa-layer-group fa-3x mb-2 shadow-sm rounded-circle p-1" style="background: rgba(0,0,0,0.1);"></i>
+                    <h3 class="mb-0 fw-bold">Editar Estante</h3>
+                </div>
+                <div class="card-body p-4 p-md-5">
+                    <form asp-action="Edit">
+                        <div asp-validation-summary="ModelOnly" class="alert alert-danger border border-danger text-center rounded-3 p-2 mb-4"></div>
+                        <input type="hidden" asp-for="Id" />
+                        
+                        <div class="mb-4">
+                            <label asp-for="Nombre" class="form-label fw-bold text-light opacity-75 text-uppercase small"></label>
+                            <input asp-for="Nombre" class="form-control bg-dark border-secondary text-light fw-bold px-3 py-2" placeholder="Ej. A1" />
+                            <span asp-validation-for="Nombre" class="text-danger small mt-1 d-block"></span>
+                        </div>
 
-<h4>Estante</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Edit">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="Id" />
-            <div class="form-group">
-                <label asp-for="Nombre" class="control-label"></label>
-                <input asp-for="Nombre" class="form-control" />
-                <span asp-validation-for="Nombre" class="text-danger"></span>
+                        <div class="mb-4">
+                            <label asp-for="Ubicacion" class="form-label fw-bold text-light opacity-75 text-uppercase small"></label>
+                            <div class="input-group">
+                                <span class="input-group-text bg-black border-secondary text-info"><i class="fas fa-map-marker-alt"></i></span>
+                                <input asp-for="Ubicacion" class="form-control bg-dark border-secondary text-light px-3 py-2" placeholder="Ej. Pasillo Principal" />
+                            </div>
+                            <span asp-validation-for="Ubicacion" class="text-danger small mt-1 d-block"></span>
+                        </div>
+                        
+                        <div class="mb-5">
+                            <label asp-for="Descripcion" class="form-label fw-bold text-light opacity-75 text-uppercase small"></label>
+                            <input asp-for="Descripcion" class="form-control bg-dark border-secondary text-light px-3 py-2" placeholder="Descripción física..." />
+                            <span asp-validation-for="Descripcion" class="text-danger small mt-1 d-block"></span>
+                        </div>
+                        
+                        <div class="d-flex justify-content-between align-items-center mb-2">
+                            <a asp-action="Index" class="btn btn-outline-secondary rounded-pill px-4 fw-bold text-light">
+                                <i class="fas fa-arrow-left me-1"></i> Cancelar
+                            </a>
+                            <button type="submit" class="btn btn-warning rounded-pill px-4 fw-bold text-dark shadow-sm">
+                                <i class="fas fa-save me-1"></i> Guardar Cambios
+                            </button>
+                        </div>
+                    </form>
+                </div>
             </div>
-            <div class="form-group">
-                <label asp-for="Ubicacion" class="control-label"></label>
-                <input asp-for="Ubicacion" class="form-control" />
-                <span asp-validation-for="Ubicacion" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Descripcion" class="control-label"></label>
-                <input asp-for="Descripcion" class="form-control" />
-                <span asp-validation-for="Descripcion" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
-            </div>
-        </form>
+        </div>
     </div>
-</div>
-
-<div>
-    <a asp-action="Index">Back to List</a>
 </div>
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }
+<style>
+    input.form-control:focus { background-color: #1a1e23; border-color: #ffc107; color: white; box-shadow: 0 0 0 0.25rem rgba(255, 193, 7, 0.25); }
+</style>
